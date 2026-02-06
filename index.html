@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EcoRoute Pro 🌿</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <button class="recenter-btn" onclick="useCurrentLocation()" title="Go to My Location">📍</button>
+
+    <div class="search-panel">
+        <div class="header-row">
+            <h1>EcoRoute 🌿 <span class="badge">PRO</span></h1>
+        </div>
+
+        <div class="input-container">
+            <div class="input-row">
+                <div class="dot green"></div>
+                <input type="text" id="start" placeholder="Start Point" autocomplete="off">
+                <button class="clear-btn" onclick="clearInput('start')">×</button>
+                <div id="suggestions-start" class="suggestions-box hidden"></div>
+            </div>
+            <div class="connector-line"></div>
+            <div class="input-row">
+                <div class="dot red"></div>
+                <input type="text" id="end" placeholder="Destination" autocomplete="off">
+                <button class="clear-btn" onclick="clearInput('end')">×</button>
+                <div id="suggestions-end" class="suggestions-box hidden"></div>
+            </div>
+        </div>
+        
+        <div class="controls-row">
+            <div class="select-wrapper">
+                <select id="transportMode">
+                    <optgroup label="🚗 Personal Cars">
+                        <option value="petrol_small">Hatchback (Petrol)</option>
+                        <option value="petrol_sedan">Sedan (Petrol)</option>
+                        <option value="petrol_suv">SUV (Petrol)</option>
+                        <option value="diesel_sedan">Sedan (Diesel)</option>
+                        <option value="diesel_suv">SUV (Diesel)</option>
+                        <option value="cng_car">CNG Car (Eco)</option>
+                        <option value="hybrid">Hybrid Car</option>
+                    </optgroup>
+                    <optgroup label="⚡ Electric">
+                        <option value="ev_sedan">EV Sedan</option>
+                        <option value="ev_suv">EV SUV</option>
+                        <option value="electric_scooter">Electric Scooter</option>
+                    </optgroup>
+                    <optgroup label="🏍️ Two Wheelers">
+                        <option value="scooter">Scooter (Petrol)</option>
+                        <option value="bike">Motorbike (150cc)</option>
+                        <option value="superbike">Superbike (>500cc)</option>
+                    </optgroup>
+                    <optgroup label="🚌 Public Transport (Per Person)">
+                        <option value="bus_city">City Bus (Non-AC)</option>
+                        <option value="bus_ac">Volvo / AC Bus</option>
+                        <option value="train">Metro / Local Train</option>
+                        <option value="auto">Auto Rickshaw</option>
+                    </optgroup>
+                    <optgroup label="🚛 Commercial">
+                        <option value="pickup">Pickup Truck</option>
+                        <option value="lorry">Heavy Lorry</option>
+                    </optgroup>
+                </select>
+            </div>
+            <button onclick="findRoute()" id="go-btn">Go ➔</button>
+        </div>
+    </div>
+
+    <div id="bottom-card" class="hidden">
+        <div class="card-header">
+            <div>
+                <h2 id="time-display">0 min</h2>
+                <div id="distance-display" class="sub-text">0 km</div>
+            </div>
+            <div class="tag-group">
+                <span class="tag tree">🌲 <span id="trees-saved">0</span> Trees Saved</span>
+            </div>
+        </div>
+
+        <div class="comparison-box">
+            <div class="route-option">
+                <span>💨 Fastest</span>
+                <strong id="fast-emission">0 kg</strong>
+            </div>
+            <div class="route-option highlight">
+                <span>🌿 Greenest</span>
+                <strong id="green-emission">0 kg</strong>
+            </div>
+        </div>
+        
+        <div id="savings-banner">Calculating...</div>
+    </div>
+
+    <div id="error-toast" class="hidden"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
